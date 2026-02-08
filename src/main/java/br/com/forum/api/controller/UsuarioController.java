@@ -39,8 +39,7 @@ public class UsuarioController {
     }
 
     // ==== DETALHAR USUÁRIO ====
-    @GetMapping
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity detalharUsuario(@PathVariable Long id){
         // Recupera o usuário do repositório, caso o tenha encontrado
         var usuario = repository.getReferenceById(id);
@@ -48,5 +47,15 @@ public class UsuarioController {
         // Caso o tenha encontrado, retorna o código 200 e o detalhamento
         // do usuário no body.
         return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
+    }
+
+    // ==== DELETAR USUÁRIO ====
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarUsuario(@PathVariable Long id){
+        var usuario = repository.getReferenceById(id);
+        usuario.deletar();
+
+        return ResponseEntity.noContent().build();
     }
 }

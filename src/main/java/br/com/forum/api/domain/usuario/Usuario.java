@@ -29,6 +29,8 @@ public class Usuario {
     @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
     private List<Topico> topicosDoUsuario = new ArrayList<>();
 
+    private boolean ativo;
+
     private static final BCryptPasswordEncoder encriptador = new BCryptPasswordEncoder();
 
     public Usuario(DadosCadastroUsuario dados){
@@ -38,10 +40,16 @@ public class Usuario {
 
         // Cria uma senha encriptada para salvar no banco de dados
         this.senha = gerarSenhaHash(dados.senha());
+
+        this.ativo = true;
     }
 
     // ==== ENCRIPTADOR SENHA ====
     private String gerarSenhaHash(String senha){
         return encriptador.encode(senha);
+    }
+
+    public void deletar() {
+        this.ativo = false;
     }
 }
