@@ -9,9 +9,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Controller
@@ -21,10 +19,12 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
-    // ==== CADASTRAR USUARIO NO BANCO DE DADOS ====
+    // ==== CADASTRAR USUÁRIO NO BANCO DE DADOS ====
     @PostMapping
     @Transactional
-    public ResponseEntity cadastrarUsuario(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder){
+    public ResponseEntity cadastrarUsuario(
+            @RequestBody @Valid DadosCadastroUsuario dados,
+            UriComponentsBuilder uriBuilder){
 
         // Cadastra o usuário com base na validação do body recebido
         var usuario = new Usuario(dados);
@@ -36,5 +36,17 @@ public class UsuarioController {
 
         // Retorna os dados de detalhamento do usuário criado
         return ResponseEntity.created(uri).body(new DadosDetalhamentoUsuario(usuario));
+    }
+
+    // ==== DETALHAR USUÁRIO ====
+    @GetMapping
+    @RequestMapping("/{id}")
+    public ResponseEntity detalharUsuario(@PathVariable Long id){
+        // Recupera o usuário do repositório, caso o tenha encontrado
+        var usuario = repository.getReferenceById(id);
+
+        // Caso o tenha encontrado, retorna o código 200 e o detalhamento
+        // do usuário no body.
+        return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
     }
 }
