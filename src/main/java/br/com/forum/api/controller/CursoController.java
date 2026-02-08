@@ -8,10 +8,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
@@ -37,6 +34,16 @@ public class CursoController {
 
         // Retorna código 204 com o caminho para visualiação e os detalhes do curso
         return ResponseEntity.created(uri).body(new DadosDetalhamentoCurso(curso));
+    }
+
+    // ==== DETALHAR CURSO ====
+    @GetMapping("/{id}")
+    public ResponseEntity detalharCurso(@PathVariable Long id){
+
+        // Pega a referência do id, e retorna um código 200 com os detalhes do curso
+        var curso = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoCurso(curso));
     }
 
 }
