@@ -8,11 +8,10 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
-@Controller
+@RestController
 @RequestMapping("/usuarios")
 public class UsuarioController {
 
@@ -31,7 +30,7 @@ public class UsuarioController {
         // Salva no banco de dados
         repository.save(usuario);
 
-        // Cria uma url de acesso ao usuário para visualiação do mesmo
+        // Cria uma url de acesso ao usuário para visualização do mesmo
         var uri = uriBuilder.path("/usuarios/{id}").buildAndExpand(usuario.getId()).toUri();
 
         // Retorna os dados de detalhamento do usuário criado
@@ -53,9 +52,11 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletarUsuario(@PathVariable Long id){
+        //Recupera a referência do usuário, e o deleta
         var usuario = repository.getReferenceById(id);
         usuario.deletar();
 
+        // Retorna código 204 sem conteúdo
         return ResponseEntity.noContent().build();
     }
 }
