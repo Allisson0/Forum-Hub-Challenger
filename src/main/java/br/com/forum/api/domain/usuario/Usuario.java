@@ -19,7 +19,7 @@ import java.util.List;
 public class Usuario {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     private String nome;
     private String email;
@@ -27,4 +27,16 @@ public class Usuario {
 
     @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
     private List<Topico> topicosDoUsuario = new ArrayList<>();
+
+    public Usuario(DadosCadastroUsuario dados){
+        this.nome = dados.nome();
+
+        this.email = dados.email();
+
+        this.senha = gerarSenhaHash(dados.senha());
+    }
+
+    private String gerarSenhaHash(String senha){
+
+    }
 }
