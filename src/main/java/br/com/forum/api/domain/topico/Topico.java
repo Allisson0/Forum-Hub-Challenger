@@ -24,7 +24,7 @@ public class Topico {
     private String titulo;
     private String mensagem;
     private LocalDate dataCriacao;
-    private boolean status;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
