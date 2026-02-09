@@ -1,11 +1,13 @@
 package br.com.forum.api.domain.curso;
 
+import br.com.forum.api.domain.topico.Topico;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity(name = "Curso")
 @Table(name = "cursos")
@@ -22,6 +24,9 @@ public class Curso {
 
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY.)
+    private List<Topico> topicos;
 
     public Curso(DadosCadastroCurso dados) {
         this.nome = dados.nome();
