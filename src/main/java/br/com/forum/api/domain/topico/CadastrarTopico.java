@@ -1,5 +1,6 @@
 package br.com.forum.api.domain.topico;
 
+import br.com.forum.api.domain.ValidacaoException;
 import br.com.forum.api.domain.curso.CursoRepository;
 import br.com.forum.api.domain.usuario.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,24 @@ public class CadastrarTopico {
     // ==== CADASTRO DE TÓPICO ====
     public DadosDetalhamentoTopico cadastrar(DadosCadastroTopico dados) {
 
-        // Recupera a data local atual
-        LocalDate dataCriacao = LocalDate.now();
+
+        // Para caso o ID do usuário ou do curso seja inválido,
+        // retorna uma exception
+        if (!usuarioRepository.existsById(dados.idUsuario())) {
+            throw new ValidacaoException("Id de usuário não encontrado.");
+        }
+        if (!cursoRepository.existsById(dados.idCurso())) {
+            throw new ValidacaoException("Id do curso não encontrado");
+        }
 
         // Recupera a referência do autor pelo id
         var autor = usuarioRepository.getReferenceById(dados.idUsuario());
 
         // Recupera a referência do curso pelo id
         var curso = cursoRepository.getReferenceById(dados.idCurso());
+
+        // Recupera a data local atual
+        LocalDate dataCriacao = LocalDate.now();
 
         // Cria um novo tópico com as informações adquiridas
         var topico = new Topico(
