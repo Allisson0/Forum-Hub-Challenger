@@ -25,7 +25,7 @@ public class Curso {
     @Enumerated(EnumType.STRING)
     private Categoria categoria;
 
-    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY.)
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
     private List<Topico> topicos;
 
     public Curso(DadosCadastroCurso dados) {

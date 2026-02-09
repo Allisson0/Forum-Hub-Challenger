@@ -27,6 +27,7 @@ public class Topico {
     private boolean status;
 
     @ManyToOne
+    @JoinColumn(name = "usuario_id")
     private Usuario autor;
 
     @ManyToOne
