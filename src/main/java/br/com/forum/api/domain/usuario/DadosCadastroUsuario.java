@@ -1,16 +1,16 @@
 package br.com.forum.api.domain.usuario;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 public record DadosCadastroUsuario(
-        @NotNull
+        @NotBlank
         String nome,
-        @NotNull @Email
+        @NotBlank @Email
         String email,
         //Minimo de 8 dígitos quaisquer
-        @NotNull @Pattern(regexp = ".{8,}$")
+        @NotBlank @Pattern(regexp = ".{8,}$")
         String senha
 ) {
 }
