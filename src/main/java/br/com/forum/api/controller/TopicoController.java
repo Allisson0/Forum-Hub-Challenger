@@ -32,10 +32,10 @@ public class TopicoController {
 
         // Cria uma url de acesso dos detalhes do tópico
         var uri = uriBuilder.path("/topicos/{id}")
-                .buildAndExpand(topico.getId()).toUri();
+                .buildAndExpand(topico.id()).toUri();
 
         // Retorna a url de acesso e os dados do topico.
-        return ResponseEntity.created(uri).body(new DadosDetalhamentoTopico(topico));
+        return ResponseEntity.created(uri).body(topico);
     }
 
 }

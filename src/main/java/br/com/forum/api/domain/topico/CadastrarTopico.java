@@ -19,22 +19,29 @@ public class CadastrarTopico {
     @Autowired
     private TopicoRepository topicoRepository;
 
-    public Topico cadastrar(DadosCadastroTopico dados) {
+    // ==== CADASTRO DE TÓPICO ====
+    public DadosDetalhamentoTopico cadastrar(DadosCadastroTopico dados) {
 
+        // Recupera a data local atual
         LocalDate dataCriacao = LocalDate.now();
 
+        // Recupera a referência do autor pelo id
         var autor = usuarioRepository.getReferenceById(dados.idUsuario());
 
+        // Recupera a referência do curso pelo id
         var curso = cursoRepository.getReferenceById(dados.idCurso());
 
+        // Cria um novo tópico com as informações adquiridas
         var topico = new Topico(
                 null, dados.titulo(), dados.mensagem(),
                 dataCriacao, true, autor, curso
         );
 
+        // Salva este tópico no banco de dados
         topicoRepository.save(topico);
 
-        return topico;
+        // Retorna o detalhamento deste topico
+        return new DadosDetalhamentoTopico(topico);
 
     }
 }
