@@ -93,7 +93,7 @@ public class TopicoController {
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
-    // ==== DELETAR TOPICOS ====
+    // ==== DELETAR TÓPICOS ====
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletarTopico(@PathVariable Long id){
