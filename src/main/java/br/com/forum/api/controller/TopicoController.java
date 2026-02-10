@@ -1,9 +1,7 @@
 package br.com.forum.api.controller;
 
-import br.com.forum.api.domain.topico.CadastrarTopico;
-import br.com.forum.api.domain.topico.DadosCadastroTopico;
-import br.com.forum.api.domain.topico.DadosListagemTopico;
-import br.com.forum.api.domain.topico.TopicoRepository;
+import br.com.forum.api.domain.ValidacaoException;
+import br.com.forum.api.domain.topico.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +50,22 @@ public class TopicoController {
 
         // Retorna código ok 200 + as páginas
         return ResponseEntity.ok(paginacao);
+    }
+
+    // ==== DETALHAMENTO DE TÓPICOS ====
+    @GetMapping("/{id}")
+    public ResponseEntity detalharTopico(@PathVariable Long id){
+
+        // Verifica se o código Id é válido para referência de tópico
+        if (!repository.existsById(id)) {
+            throw new ValidacaoException("Id de tópico inexistente.");
+        }
+
+        // Se for, salva a referência deste id
+        var topico = repository.getReferenceById(id);
+
+        // Retorna código ok 200 + dados do tópico
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+
     }
 }
