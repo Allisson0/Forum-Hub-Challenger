@@ -7,6 +7,7 @@ public record DadosDetalhamentoTopico(
         String titulo,
         String mensagem,
         LocalDate dataDeCriacao,
+        String status,
         String autor,
         Long idAutor,
         String curso,
@@ -15,9 +16,9 @@ public record DadosDetalhamentoTopico(
     public DadosDetalhamentoTopico(Topico dados){
         this(
                 dados.getId(), dados.getTitulo(), dados.getMensagem(),
-                dados.getDataCriacao(), dados.getAutor().getNome(),
-                dados.getAutor().getId(), dados.getCurso().getNome(),
-                dados.getCurso().getId()
+                dados.getDataCriacao(), dados.getStatus(),
+                dados.getAutor().getNome(), dados.getAutor().getId(),
+                dados.getCurso().getNome(), dados.getCurso().getId()
         );
     }
 }

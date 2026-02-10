@@ -66,6 +66,31 @@ public class TopicoController {
 
         // Retorna código ok 200 + dados do tópico
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
-
     }
+
+    // ==== ATUALIZAR TÓPICOS ====
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity atualizarTopico(@PathVariable Long id, @RequestBody DadosAtualizacaoTopico dados){
+
+        // Pega a referência deste topico pelo id
+        var topicoRef = repository.findById(id);
+
+        // Verifica se há algo nesta referência
+        if (topicoRef.isEmpty()) {
+
+            // Se não houver, retorna uma exception de validação
+            throw new ValidacaoException("Tópico inexistente no banco de dados.");
+        }
+
+        // Recupera o tópico da referência Optional
+        var topico = topicoRef.get();
+
+        // Atualiza os dados com os dados de atualização.
+        topico.atualizar(dados);
+
+        // Retorna ok 200 com os dados atualizados.
+        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+    }
+
 }

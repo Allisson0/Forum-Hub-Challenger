@@ -35,4 +35,19 @@ public class Topico {
 
 
     //private List<Resposta> respostas;
+
+    // ==== ATUALIZAR DADOS ====
+    public void atualizar (DadosAtualizacaoTopico dados){
+
+        // Se algum campo não for em branco, atualiza por este campo
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+        if (dados.status() != null) {
+            this.status = dados.status();
+        }
+    }
 }
