@@ -93,4 +93,21 @@ public class TopicoController {
         return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
     }
 
+    // ==== DELETAR TOPICOS ====
+    @DeleteMapping("/{id}")
+    @Transactional
+    public ResponseEntity deletarTopico(@PathVariable Long id){
+
+        // Verifica se o repositório exite com este id
+        if (!repository.existsById(id)) {
+            throw new ValidacaoException("Nenhum tópico existente com este id no banco de dados");
+        }
+
+        // SE existe, o deleta do banco de dados
+        repository.deleteById(id);
+
+        // Retorna 204 sem conteúdo
+        return ResponseEntity.noContent().build();
+    }
+
 }
