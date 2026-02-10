@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @RestControllerAdvice
 public class CatchErrors {
@@ -30,6 +31,12 @@ public class CatchErrors {
         return ResponseEntity.badRequest().body(
                 erros.stream().map(DadosErroException::new).toList()
         );
+    }
+
+    // ==== TIPO INVÁLIDO NA REQUISIÇÃO ====
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity tipoInvalidoNaRequisicao(){
+        return ResponseEntity.badRequest().body("Tipo inválido na requisição.");
     }
 
     // ==== ERRO DE VALIDAÇÃO ====
