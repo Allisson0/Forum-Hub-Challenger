@@ -8,6 +8,10 @@ import com.auth0.jwt.exceptions.JWTCreationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+
 @Service
 public class TokenService {
 
@@ -25,8 +29,9 @@ public class TokenService {
         try {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
             token = JWT.create()
-                    .withIssuer("Forum Hub")
+                    .withIssuer("API Forum Hub")
                     .withClaim("id", usuario.getId())
+                    .withExpiresAt(gerarExpiracao())
                     .sign(algoritmo);
 
         } catch (JWTCreationException exception){
@@ -36,6 +41,9 @@ public class TokenService {
         return token;
     }
 
-
+    // ==== GERAR DATA DE EXPIRAÇÃO DUAS HORAS DEPOIS DA GERAÇÃO DO TOKEN ====
+    private Instant gerarExpiracao(){
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-3:00"));
+    }
 
 }
