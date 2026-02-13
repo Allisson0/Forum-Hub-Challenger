@@ -1,7 +1,9 @@
 package br.com.forum.api.controller;
 
 import br.com.forum.api.domain.usuario.DadosLoginUsuario;
+import br.com.forum.api.domain.usuario.Usuario;
 import br.com.forum.api.domain.usuario.UsuarioRepository;
+import br.com.forum.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,13 +24,19 @@ public class AutenticacaoController {
     @Autowired
     private AuthenticationManager manager;
 
+    @Autowired
+    private TokenService tokenService;
+
     // ==== LOGIN DE USUÁRIO CADASTRADO ====
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid DadosLoginUsuario dados) {
-        //var tokenAutenticacao = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
-        //var autenticacao = manager.authenticate(tokenAutenticacao);
+        var tokenAutenticacao = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+        var autenticacao = manager.authenticate(tokenAutenticacao);
 
-        return ResponseEntity.ok().build();
+        // Gera o token JWT com os dados de usuário
+        var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
+
+        return ResponseEntity.ok(tokenJWT);
     }
 
 

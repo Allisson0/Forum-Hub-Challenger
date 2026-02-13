@@ -43,7 +43,7 @@ public class TokenService {
 
     // ==== GERAR DATA DE EXPIRAÇÃO DUAS HORAS DEPOIS DA GERAÇÃO DO TOKEN ====
     private Instant gerarExpiracao(){
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-3:00"));
+        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }
