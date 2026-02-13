@@ -30,10 +30,14 @@ public class AutenticacaoController {
     // ==== LOGIN DE USUÁRIO CADASTRADO ====
     @PostMapping
     public ResponseEntity login(@RequestBody @Valid DadosLoginUsuario dados) {
+
+        // Transforma num objeto de autenticação para efetuar o login
         var tokenAutenticacao = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
+
+        // Autentica os dados enviados, com base no repositório da aplicação
         var autenticacao = manager.authenticate(tokenAutenticacao);
 
-        // Gera o token JWT com os dados de usuário
+        // Gera o Token JWT com os dados de usuário
         var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
 
         return ResponseEntity.ok(tokenJWT);
