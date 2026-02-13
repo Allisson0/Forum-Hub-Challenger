@@ -5,6 +5,7 @@ import br.com.forum.api.domain.usuario.Usuario;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +41,27 @@ public class TokenService {
         }
 
         return token;
+    }
+
+    // ==== VALIDA E RETORNA O USUÁRIO DO TOKEN ====
+    public String validarToken(String tokenJwt){
+        try {
+            // Cria o algoritmo JWT secreto
+            Algorithm algoritmo = Algorithm.HMAC256(secret);
+
+            // Retorna o subject do token recebido, se for válido
+            return JWT.require(algoritmo)
+                    // specify any specific claim validations
+                    .withIssuer("API Forum Hub")
+                    // reusable verifier instance
+                    .build()
+                    .verify(tokenJwt)
+                    .getSubject();
+
+            // Caso for inválido:
+        } catch (JWTVerificationException exception){
+            throw new ValidacaoException("Token JWT inválido ou expirado.");
+        }
     }
 
     // ==== GERAR DATA DE EXPIRAÇÃO DUAS HORAS DEPOIS DA GERAÇÃO DO TOKEN ====
