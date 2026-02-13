@@ -30,6 +30,7 @@ public class TokenService {
             Algorithm algoritmo = Algorithm.HMAC256(secret);
             token = JWT.create()
                     .withIssuer("API Forum Hub")
+                    .withSubject(usuario.getEmail())
                     .withClaim("id", usuario.getId())
                     .withExpiresAt(gerarExpiracao())
                     .sign(algoritmo);
