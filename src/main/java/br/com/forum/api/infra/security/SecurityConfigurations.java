@@ -32,6 +32,8 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(req -> {
                     // Acesso liberado para a requisição POST em /login
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
+                    // Acesso liberado para cadastro de novos usuários no sistema
+                    req.requestMatchers(HttpMethod.POST, "/usuarios").permitAll();
                     // Acesso ao restante, apenas autenticado
                     req.anyRequest().authenticated();
                 })
