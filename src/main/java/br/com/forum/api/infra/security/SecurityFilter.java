@@ -39,7 +39,7 @@ public class SecurityFilter extends OncePerRequestFilter {
             // Como o Email é o login do usuário, procura este
             // login (considerando que nosso token obrigatoriamente
             // necessita haver um, para ser válido)
-            var usuario = usuarioRepository.findByEmail(subject);
+            var usuario = usuarioRepository.findByEmailAndAtivoTrue(subject);
 
             // Como não há necessidade de credenciais neste projeto, criamos
             // uma autenticação com credenciais de valor nulo

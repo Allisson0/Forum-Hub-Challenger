@@ -9,6 +9,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     boolean existsUsuarioByIdAndAtivoTrue(Long id);
 
     // Procura o login de um usuário pelo seu Email
-    UserDetails findByEmail(String login);
+    // e condição de estar ativo no sistema
+    UserDetails findByEmailAndAtivoTrue(String login);
 
 }

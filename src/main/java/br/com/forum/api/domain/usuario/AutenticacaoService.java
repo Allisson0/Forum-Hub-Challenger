@@ -15,6 +15,6 @@ public class AutenticacaoService implements UserDetailsService {
     // ==== SERVIÇO DE BUSCA DE USUÁRIO POR LOGIN VALIDADO ====
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        return repository.findByEmail(login);
+        return repository.findByEmailAndAtivoTrue(login);
     }
 }
