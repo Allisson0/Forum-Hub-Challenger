@@ -3,6 +3,7 @@ package br.com.forum.api.infra.exception;
 import br.com.forum.api.domain.ValidacaoException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -43,6 +44,15 @@ public class CatchErrors {
     @ExceptionHandler(ValidacaoException.class)
     public ResponseEntity erroDeValidacao(ValidacaoException ex){
         // Para caso erro de validação encontrado, retorna a sua mensagem
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    // ==== BODY FALTANTE ====
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity bodyEstaFaltando(HttpMessageNotReadableException ex){
+
+        // Caso a requisição precise de um body na API, e ela não
+        // tiver, ou haver um erro no formato do JSON, retorna erro
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
 

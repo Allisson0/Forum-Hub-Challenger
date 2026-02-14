@@ -32,4 +32,11 @@ public class Curso {
         this.nome = dados.nome();
         this.categoria = dados.categoria();
     }
+
+    // ==== ALTERAR DADOS DO CURSO / NOME ====
+    public void atualizar(DadosAlterarCurso dados) {
+        if (dados.nome()!=null){
+            this.nome = dados.nome();
+        }
+    }
 }

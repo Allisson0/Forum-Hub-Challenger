@@ -1,5 +1,6 @@
 package br.com.forum.api.controller;
 
+import br.com.forum.api.domain.ValidacaoException;
 import br.com.forum.api.domain.curso.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
@@ -57,5 +58,26 @@ public class CursoController {
 
         // Retorna código ok 200 + lista dos cursos cadastrados no sistema
         return ResponseEntity.ok(listaCursos);
+    }
+
+    // ==== ALTERAR CURSO ====
+    @PatchMapping("/{id}")
+    @Transactional
+    public ResponseEntity alterarCurso (@PathVariable Long id, @RequestBody DadosAlterarCurso dados) {
+
+        // Recupera a referência do curso
+        var cursoRef = repository.findById(id);
+
+        // Verifica se o tópico existe
+        if (cursoRef.isEmpty()) {
+            throw new ValidacaoException("Curso inexistente no banco de dados");
+        }
+
+        // Atualiza o curso com base nos dados chegados da requisição
+        var curso = cursoRef.get();
+        curso.atualizar(dados);
+
+        // Retorna código ok com os dados do curso
+        return ResponseEntity.ok(new DadosDetalhamentoCurso(curso));
     }
 }
