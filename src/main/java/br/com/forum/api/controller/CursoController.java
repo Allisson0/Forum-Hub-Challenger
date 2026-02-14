@@ -1,12 +1,12 @@
 package br.com.forum.api.controller;
 
-import br.com.forum.api.domain.curso.Curso;
-import br.com.forum.api.domain.curso.CursoRepository;
-import br.com.forum.api.domain.curso.DadosCadastroCurso;
-import br.com.forum.api.domain.curso.DadosDetalhamentoCurso;
+import br.com.forum.api.domain.curso.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -46,4 +46,16 @@ public class CursoController {
         return ResponseEntity.ok(new DadosDetalhamentoCurso(curso));
     }
 
+    // ==== LISTAR CURSOS ====
+    @GetMapping
+    public ResponseEntity<Page<DadosListagemCurso>> listarCurso (
+            @PageableDefault (sort = {"nome"}, size = 10, page = 0) Pageable page){
+
+        // Com base no padrão da lista, cria uma lista de DadosListagemCurso
+        // com base nos cursos existentes na aplicação
+        var listaCursos = repository.findAll(page).map(DadosListagemCurso::new);
+
+        // Retorna código ok 200 + lista dos cursos cadastrados no sistema
+        return ResponseEntity.ok(listaCursos);
+    }
 }

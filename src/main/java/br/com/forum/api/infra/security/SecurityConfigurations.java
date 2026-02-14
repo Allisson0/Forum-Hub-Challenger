@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                         // Política de login Stateless
                         s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
+
                     // Acesso liberado para a requisição POST em /login
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
                     // Acesso liberado para cadastro de novos usuários no sistema
