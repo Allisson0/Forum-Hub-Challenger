@@ -104,4 +104,18 @@ public class Usuario implements UserDetails {
         //return UserDetails.super.isEnabled();
         return true;
     }
+
+    // ==== ATUALIZA OS DADOS DO USUÁRIO ====
+    public void atualizar(DadosAlterarUsuario dados) {
+
+        // Se houver nome, o atualiza
+        if (dados.nome() != null){
+            this.nome = dados.nome();
+        }
+
+        // Se houver senha, a atualiza em formato hash
+        if (dados.senha() != null) {
+            this.senha = gerarSenhaHash(dados.senha());
+        }
+    }
 }

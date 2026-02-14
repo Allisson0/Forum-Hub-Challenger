@@ -1,9 +1,7 @@
 package br.com.forum.api.controller;
 
-import br.com.forum.api.domain.usuario.DadosCadastroUsuario;
-import br.com.forum.api.domain.usuario.DadosDetalhamentoUsuario;
-import br.com.forum.api.domain.usuario.Usuario;
-import br.com.forum.api.domain.usuario.UsuarioRepository;
+import br.com.forum.api.domain.ValidacaoException;
+import br.com.forum.api.domain.usuario.*;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +38,7 @@ public class UsuarioController {
     // ==== DETALHAR USUÁRIO ====
     @GetMapping("/{id}")
     public ResponseEntity detalharUsuario(@PathVariable Long id){
+
         // Recupera o usuário do repositório, caso o tenha encontrado
         var usuario = repository.getReferenceById(id);
 
@@ -52,11 +51,34 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity deletarUsuario(@PathVariable Long id){
+
         //Recupera a referência do usuário, e o deleta
         var usuario = repository.getReferenceById(id);
         usuario.deletar();
 
         // Retorna código 204 sem conteúdo
         return ResponseEntity.noContent().build();
+    }
+
+    // ==== ALTERAR USUÁRIO ====
+    @PatchMapping
+    @Transactional
+    public ResponseEntity alterarUsuario (@RequestBody @Valid DadosAlterarUsuario dados){
+
+        // Recupera o id do dado a ser alterado da requisição
+        Long id = dados.id();
+
+        // Verifica se o id do usuário existe e está ativo
+        if (!repository.existsUsuarioByIdAndAtivoTrue(id)){
+            throw new ValidacaoException("O usuário não existe no sistema.");
+        }
+
+        // Recupera este usuário do banco de dados e o
+        // atualiza
+        var usuario = repository.getReferenceById(id);
+        usuario.atualizar(dados);
+
+        // Retorna as novas informações
+        return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
     }
 }
