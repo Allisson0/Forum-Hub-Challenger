@@ -51,9 +51,7 @@ public class TokenService {
 
             // Retorna o subject do token recebido, se for válido
             return JWT.require(algoritmo)
-                    // specify any specific claim validations
                     .withIssuer("API Forum Hub")
-                    // reusable verifier instance
                     .build()
                     .verify(tokenJwt)
                     .getSubject();

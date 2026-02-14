@@ -3,6 +3,7 @@ package br.com.forum.api.controller;
 import br.com.forum.api.domain.usuario.DadosLoginUsuario;
 import br.com.forum.api.domain.usuario.Usuario;
 import br.com.forum.api.domain.usuario.UsuarioRepository;
+import br.com.forum.api.infra.security.DadosToken;
 import br.com.forum.api.infra.security.TokenService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class AutenticacaoController {
         // Gera o Token JWT com os dados de usuário
         var tokenJWT = tokenService.gerarToken((Usuario) autenticacao.getPrincipal());
 
-        return ResponseEntity.ok(tokenJWT);
+        // Retorna o token para o usuário junto do cód. 200
+        return ResponseEntity.ok(new DadosToken(tokenJWT));
     }
-
 
 }
