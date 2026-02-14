@@ -61,9 +61,12 @@ public class CursoController {
     }
 
     // ==== ALTERAR CURSO ====
-    @PatchMapping("/{id}")
+    @PatchMapping
     @Transactional
-    public ResponseEntity alterarCurso (@PathVariable Long id, @RequestBody DadosAlterarCurso dados) {
+    public ResponseEntity alterarCurso (@RequestBody @Valid DadosAlterarCurso dados) {
+
+        // Recupera o id da alteração
+        Long id = dados.id();
 
         // Recupera a referência do curso
         var cursoRef = repository.findById(id);
