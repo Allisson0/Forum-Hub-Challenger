@@ -88,7 +88,7 @@ public class TopicoController {
 
         // Recupera o tópico da referência Optional
         var topico = topicoRef.get();
-
+        
         // Atualiza os dados com os dados de atualização.
         topico.atualizar(dados);
 
