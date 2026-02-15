@@ -193,3 +193,8 @@ Authorization: Bearer {seuTokenAqui}
 ```
 
 </details>
+
+
+<h5>
+    <a href="../README.md">Retornar ao menu principal.</a>
+</h5>
