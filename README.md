@@ -1,10 +1,8 @@
 <div align="center">
-  <img src="./docs/imgs/ForumHub" alt="Capa do Fórum">
+  <img src="./docs/imgs/ForumHub.png" alt="Capa do Fórum">
+
+  <h1 id = "topo">:people_hugging: Fórum Hub :people_hugging:</h1>
 </div>
-
-
-
-<h1 id = "topo">Fórum Hub</h1>
 
 <p>
   Projeto criado para aplicar os conhecimentos adquiridos durante o curso sobre Spring Boot com RestAPI. A aplicação representa um contexto de fórum online, com cursos, usuários e tópicos onde perguntas são realizadas.
@@ -12,7 +10,9 @@
   práticas de negócio, visando uma boa interpretação, manutenção e aplicação do código.
 </p>
 
-<h1>Sumário</h1>
+<div align="center">
+  <h1>Sumário 📑</h1>
+</div>
 <ol>
   <li> <a href="#desc"               > Descrição do projeto </a> </li>
   <li> <a href="#utilizandoAPI"     > Utilizando a API </a> </li>
@@ -22,7 +22,9 @@
   <li> <a href="#conclusao"         > Conclusão </a> </li>
 </ol>
 
-<h1 id = "desc"> Descrição do projeto </h1>
+<div align="center">
+  <h1 id = "desc"> Descrição do projeto 📚</h1>
+</div>
 <p>
   O projeto é um Forum para usuários cadastrados poderem adicionar tópicos de perguntas sobre cursos cadastrados na plataforma. O mesmo permite a criação de usuários, inativação e alteração de nome e senha do usuário.
   As senhas são sempre salvas no banco de dados, encriptadas por um algoritmo hash, sendo convertidas na criação de um novo usuário. <br>
@@ -37,7 +39,9 @@
 http://localhost:8080/  
 ```
 
-<h1 id = "utilizandoAPI" > Utilizando a API </h1>
+<div align="center">
+  <h1 id = "utilizandoAPI" > 🛠️ Utilizando a API 🛠️</h1>
+</div>
 
 <p>
   Para realizar as requisições, recomendamos o uso de alguns auxiliares para requisição, ex.: Insomnia e Postman. <br>
@@ -46,7 +50,7 @@ http://localhost:8080/
 </p>
 
 <h3>
-  Lista de requisições:
+  Lista de requisições 📖:
 </h3>
 
 <ul>
@@ -55,7 +59,7 @@ http://localhost:8080/
   <li> <a href= "./docs/topicos.md" > Tópicos </a></li>
 </ul>
 
-<h2>Exemplos de uso no Insomnia:</h2>
+<h2>Exemplos de uso no Insomnia: 💻</h2>
 
 <h3>Cadastro de usuário</h3>
 
@@ -96,8 +100,9 @@ http://localhost:8080/
 </div>
 
 
-
-<h1 id = "funcionalidades">Funcionalidades da aplicação</h1>
+<div align="center">
+  <h1 id = "funcionalidades">🔍 Funcionalidades da aplicação 🔍</h1>
+</div>
 <ul>
   <li>Não permite o cadastro de usuários com mesmo email (login)</li>
   <li>Não permite o cadastro de tópicos se o usuário estiver inativo</li>
@@ -108,8 +113,9 @@ http://localhost:8080/
 </ul>
 
 
-
-<h1 id="acesso">Acesso ao projeto</h1>
+<div align="center">
+  <h1 id="acesso">📂 Acesso ao projeto 📂</h1>
+</div>
 
 <h2>Requisitos para o projeto</h2>
 
@@ -120,7 +126,7 @@ http://localhost:8080/
   <li>Configurações de variáveis de ambiente</li>
 </ul>
 
-<h2>Variáveis de ambiente</h2>
+<h2>Variáveis de ambiente 🔧</h2>
 <p>
   O projeto necessita da configuração de algumas variavéis de ambiente para o projeto:
 </p>
@@ -149,7 +155,7 @@ http://localhost:8080/
 
 
 
-<h2>Banco de dados</h2>
+<h2>Banco de dados 🗃️</h2>
 
 <p>
   Também se faz necessária, a criação do banco de dados que estaremos utilizando. Por exemplo, pegando o exemplo de DATA_SOURCE acima, a última parte, é o nome do nosso banco de dados. forum_hub. <br>
@@ -165,7 +171,7 @@ CREATE DATABASE forum_hub;
 </p>
 
 
-<h2>Inicializando o projeto</h2>
+<h2>Inicializando o projeto 📷</h2>
 <p>
   1. Agora, poderemos inicializar o projeto, primeiramente, clonando este repositório:
 </p>
@@ -200,8 +206,10 @@ mvnw spring-boot:run -Dspring-boot.run.profiles=prod
 
 <p>Desta maneira, desde que as variáveis de ambiente estejam codificadas corretamente, a API já estará pronta para uso na sua máquina.</p>
 
-<h1 id="license">Licença do projeto:</h1>
-<h2>Autor</h2>
+<div align="center">
+  <h1 id="license">Licença do projeto:</h1>
+</div>
+<h2>Autor 🧑</h2>
 
 Criado por **Allisson Silva** para fins didáticos como parte do Challenger LiterAlura.
 
@@ -210,8 +218,9 @@ Criado por **Allisson Silva** para fins didáticos como parte do Challenger Lite
 Este projeto é de uso educacional e segue as diretrizes do Projeto Gutenberg para consumo de dados públicos.
 
 
-
-<h1 id="conclusao">Conclusão</h1>
+<div align="center">
+  <h1 id="conclusao">📈 Conclusão 📈</h1>
+</div>
 <p>
   Esta aplicação, é um ótimo resultado e forma de praticar os conhecimentos adquiridos durante o curso de Spring Boot com RestAPI. É possível utiliza-lo para validar e testar os conhecimentos adquiridos, além de fomentar
   o conhecimento através de uma prática mais real. O uso de boas práticas de programação, no mundo do mercado de trabalho, é uma ótima prática para facilitar a manutenção de códigos no futuro, além de deixar melhor 
