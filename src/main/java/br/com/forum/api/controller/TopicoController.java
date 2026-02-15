@@ -69,9 +69,12 @@ public class TopicoController {
     }
 
     // ==== ATUALIZAR TÓPICOS ====
-    @PutMapping("/{id}")
+    @PatchMapping
     @Transactional
-    public ResponseEntity atualizarTopico(@PathVariable Long id, @RequestBody DadosAtualizacaoTopico dados){
+    public ResponseEntity atualizarTopico(@RequestBody DadosAtualizacaoTopico dados){
+
+        // Recupera o id do body da requisição
+        var id = dados.id();
 
         // Pega a referência deste topico pelo id
         var topicoRef = repository.findById(id);
