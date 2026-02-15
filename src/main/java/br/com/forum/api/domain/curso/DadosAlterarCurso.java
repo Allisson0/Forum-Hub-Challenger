@@ -1,9 +1,10 @@
 package br.com.forum.api.domain.curso;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record DadosAlterarCurso(
-        @NotBlank
+        @NotNull
         Long id,
 
         @NotBlank
