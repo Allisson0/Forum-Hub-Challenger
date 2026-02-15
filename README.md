@@ -1,4 +1,11 @@
+<div align="center">
+  <img src="./docs/imgs/ForumHub" alt="Capa do Fórum">
+</div>
+
+
+
 <h1 id = "topo">Fórum Hub</h1>
+
 <p>
   Projeto criado para aplicar os conhecimentos adquiridos durante o curso sobre Spring Boot com RestAPI. A aplicação representa um contexto de fórum online, com cursos, usuários e tópicos onde perguntas são realizadas.
   Usufrui de persistência de dados com o uso do MySql e Migrations para criação das tabelas. Segurança STATELESS com Spring Security, Validations e uso de Tokens de autenticação JWT. Além de focar na aplicação de boas 
