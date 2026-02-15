@@ -23,6 +23,11 @@ public class UsuarioController {
             @RequestBody @Valid DadosCadastroUsuario dados,
             UriComponentsBuilder uriBuilder){
 
+        // Verifica se o email já não foi cadastrado
+        if (repository.existsByEmail(dados.email())) {
+            throw new ValidacaoException("Email já cadastrado na aplicação.");
+        }
+
         // Cadastra o usuário com base na validação do body recebido
         var usuario = new Usuario(dados);
         // Salva no banco de dados
