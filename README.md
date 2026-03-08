@@ -185,7 +185,7 @@ git clone https://github.com/Allisson0/Forum-Hub-Challenger
 </p>
 
 ```bash
-cd ./Forum-Hub-Challenger/api
+cd ./Forum-Hub-Challenger
 ```
 
 <p>
