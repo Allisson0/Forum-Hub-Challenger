@@ -17,7 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class TopicoController {
 
     @Autowired
-    private CadastrarTopico cadastroTopico;
+    private TopicoService topicoService;
 
     @Autowired
     private TopicoRepository repository;
@@ -30,7 +30,7 @@ public class TopicoController {
             UriComponentsBuilder uriBuilder){
 
         // Valida a criação de um tópico
-        var topico = cadastroTopico.cadastrar(dados);
+        var topico = topicoService.cadastrar(dados);
 
         // Cria uma url de acesso dos detalhes do tópico
         var uri = uriBuilder.path("/topicos/{id}")
@@ -73,27 +73,8 @@ public class TopicoController {
     @Transactional
     public ResponseEntity atualizarTopico(@RequestBody DadosAtualizacaoTopico dados){
 
-        // Recupera o id do body da requisição
-        var id = dados.id();
-
-        // Pega a referência deste topico pelo id
-        var topicoRef = repository.findById(id);
-
-        // Verifica se há algo nesta referência
-        if (topicoRef.isEmpty()) {
-
-            // Se não houver, retorna uma exception de validação
-            throw new ValidacaoException("Tópico inexistente no banco de dados.");
-        }
-
-        // Recupera o tópico da referência Optional
-        var topico = topicoRef.get();
-        
-        // Atualiza os dados com os dados de atualização.
-        topico.atualizar(dados);
-
-        // Retorna ok 200 com os dados atualizados.
-        return ResponseEntity.ok(new DadosDetalhamentoTopico(topico));
+        // Valida a atualização do tópico
+        return ResponseEntity.ok(topicoService.atualizarTopico(dados));
     }
 
     // ==== DELETAR TÓPICOS ====

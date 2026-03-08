@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class CadastrarTopico {
+public class TopicoService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -62,5 +62,39 @@ public class CadastrarTopico {
         // Retorna o detalhamento deste topico
         return new DadosDetalhamentoTopico(topico);
 
+    }
+
+    // ==== ATUALIZAR TOPICOS ====
+    public DadosDetalhamentoTopico atualizarTopico(DadosAtualizacaoTopico dados) {
+
+        // Recupera o id do body da requisição
+        var id = dados.id();
+        // Pega a referência deste topico pelo id
+        var topicoRef = topicoRepository.findById(id);
+
+        // Verifica se há algo nesta referência
+        if (topicoRef.isEmpty()) {
+            // Se não houver, retorna uma exception de validação
+            throw new ValidacaoException("Tópico inexistente no banco de dados.");
+        }
+
+        // Recupera o tópico da referência Optional
+        var topico = topicoRef.get();
+
+        // Criação de objeto tópico para validação de novos dados
+        var topicoValidar = new Topico(null, topico.getTitulo(), topico.getMensagem(), null, null, null, null);
+        topicoValidar.atualizar(dados);
+
+        // Verifica se a mensagem e o título da nova atualização, já não pertecem à um titulo especifico
+        // Críterio para duplicidade: mesmo título e mesma mensagem
+        if (topicoRepository.existsByMensagemAndTitulo(topicoValidar.getMensagem(), topicoValidar.getTitulo())) {
+            throw new ValidacaoException("Tópico já existente com mesmo nome e mensagem no banco de dados.");
+        }
+
+        // Atualiza os dados com os dados de atualização.
+        topico.atualizar(dados);
+
+        // Retorna ok 200 com os dados atualizados.
+        return new DadosDetalhamentoTopico(topico);
     }
 }
